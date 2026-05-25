@@ -1,0 +1,138 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "scanai"
+version = "0.4.0"
+description = "ScanAI: Kali Linux Optimized AI-powered hacking agent. 23 scanners, 106 YAML workflow profiles, 9 attack chains, Titus secrets scanning, and smart correlation engine. Strictly optimized for Kali Linux."
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.10"
+authors = [
+    {name = "0xD4rkEYe"},
+]
+maintainers = [
+    {name = "0xD4rkEYe"},
+]
+keywords = [
+    "security",
+    "reconnaissance",
+    "scanning",
+    "ai",
+    "gemini",
+    "cybersecurity",
+    "penetration-testing",
+    "ai-agents",
+    "workflow-automation",
+    "intelligent-scanning",
+    "osint",
+    "vulnerability-scanner",
+    "hacking-agent",
+    "attack-chains",
+    "red-team",
+    "secrets-scanner",
+    "titus",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Information Technology",
+    "Intended Audience :: System Administrators",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: POSIX :: Linux",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Security",
+    "Topic :: Internet :: WWW/HTTP",
+    "Topic :: Scientific/Engineering :: Information Analysis",
+]
+dependencies = [
+    "requests>=2.31.0",
+    "aiohttp>=3.9.0",
+    "langchain>=0.1.0",
+    "langchain-google-genai>=1.0.0",
+    "langchain-core>=0.1.0",
+    "rich>=13.0.0",
+    "pyfiglet>=1.0.0",
+    "urllib3>=2.0.0",
+    "dnspython>=2.4.0",
+    "python-dotenv>=1.0.0",
+    "nest-asyncio>=1.5.0",
+    "beautifulsoup4>=4.12.0",
+    "pyyaml>=6.0",
+]
+
+[project.urls]
+Homepage = "https://git.selfmade.ninja/0xD4rkEYe/scanai/"
+Documentation = "https://git.selfmade.ninja/0xD4rkEYe/scanai/-/blob/master/README.md?ref_type=heads"
+Repository = "https://git.selfmade.ninja/0xD4rkEYe/scanai/"
+Issues = "https://git.selfmade.ninja/0xD4rkEYe/scanai/-/issues"
+Changelog = "https://git.selfmade.ninja/0xD4rkEYe/scanai/-/blob/master/CHANGELOG.md?ref_type=heads"
+
+[project.scripts]
+scanai = "scanai.core.cli:main"
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["scanai*"]
+
+[tool.setuptools.package-data]
+scanai = ["*.toml", "*.md", "workflows/*.yaml"]
+
+
+
+[tool.black]
+line-length = 100
+target-version = ['py310', 'py311', 'py312', 'py313']
+include = '\.pyi?$'
+extend-exclude = '''
+/(
+  # directories
+  \.eggs
+  | \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | build
+  | dist
+)/
+'''
+
+[tool.pytest.ini_options]
+filterwarnings = [
+    "ignore::FutureWarning",
+    "ignore::DeprecationWarning",
+]
+
+[tool.isort]
+profile = "black"
+multi_line_output = 3
+line_length = 100
+
+[tool.mypy]
+python_version = "3.10"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+check_untyped_defs = true
+disallow_untyped_decorators = true
+no_implicit_optional = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+warn_no_return = true
+warn_unreachable = true
+strict_equality = true
+
+[[tool.mypy.overrides]]
+module = [
+    "tomli",
+]
+ignore_missing_imports = true

@@ -1,0 +1,18 @@
+include README.md
+include pyproject.toml
+include LICENSE
+include CHANGELOG.md
+include install.sh
+include requirements.txt
+recursive-include scanai *.py
+recursive-include scanai *.toml
+recursive-include scanai *.md
+recursive-include scanai *.yaml
+global-exclude *.pyc
+global-exclude __pycache__
+global-exclude .pytest_cache
+global-exclude .mypy_cache
+recursive-exclude tests *
+exclude build/
+exclude scanai.egg-info/
+exclude .env

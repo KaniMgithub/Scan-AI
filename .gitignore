@@ -1,0 +1,41 @@
+venv/
+.env
+scanai.egg-info/
+test_install.py
+config.toml.backup
+IMPLEMENTATION_COMPLETE.md
+tests/
+build/
+dist/
+*.egg
+.eggs/
+
+# Python cache files
+__pycache__/
+*.pyc
+
+# pytest cache
+.pytest_cache/
+.mypy_cache/
+
+# Runtime artifacts
+scanai_results/
+/tmp/scanai/
+*.log
+
+# IDE and Project specific
+.vscode/
+.idea/
+.DS_Store
+*.swp
+*.bak
+*.tmp
+.tmp/
+/tmp/scanai/
+.python-version
+.venv/
+node_modules/
+dist/
+build/
+*.egg-info/
+titus.ds/
