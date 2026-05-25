@@ -513,7 +513,3 @@ ScanAI stands on the shoulders of incredible open-source projects and platforms.
 ## License
 
 MIT License — see [LICENSE](LICENSE) for details.
-
-## Author
-
-**0xD4rkEYe** — [git.selfmade.ninja/0xD4rkEYe](https://git.selfmade.ninja/0xD4rkEYe)
