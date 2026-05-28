@@ -1,0 +1,41 @@
+scanner: dns
+description: "DNS enumeration and record discovery"
+binary: dnsrecon
+default_profile: standard
+
+profiles:
+  standard:
+    description: "Standard DNS enumeration"
+    command_template: "dnsrecon -d {target} -t std"
+    timeout: 120
+    tags: [dns, standard, records]
+
+  zone_transfer:
+    description: "Attempt zone transfer (AXFR)"
+    command_template: "dnsrecon -d {target} -t axfr"
+    timeout: 60
+    tags: [dns, axfr, zone_transfer]
+
+  brute_force:
+    description: "DNS brute-force with wordlist"
+    command_template: "dnsrecon -d {target} -t brt -D /usr/share/wordlists/seclists/Discovery/DNS/subdomains-top1million-5000.txt"
+    timeout: 300
+    tags: [dns, bruteforce, active]
+
+  reverse_lookup:
+    description: "Reverse DNS lookup on IP range"
+    command_template: "dnsrecon -r {target}/24 -t rvl"
+    timeout: 120
+    tags: [dns, reverse, ptr]
+
+  cache_snoop:
+    description: "DNS cache snooping"
+    command_template: "dnsrecon -d {target} -t snoop"
+    timeout: 60
+    tags: [dns, cache, snoop]
+
+  full_enum:
+    description: "Complete DNS enumeration — all record types"
+    command_template: "dnsrecon -d {target} -t std,axfr,brt -D /usr/share/wordlists/seclists/Discovery/DNS/subdomains-top1million-110000.txt"
+    timeout: 600
+    tags: [dns, full, comprehensive]

@@ -1,0 +1,29 @@
+scanner: virustotal
+description: "VirusTotal URL/domain reputation, malware, and phishing detection"
+binary: null
+default_profile: url_scan
+
+profiles:
+  url_scan:
+    description: "Full URL reputation scan — malware + phishing detection"
+    method: vt_url_scan
+    timeout: 60
+    tags: [virustotal, malware, phishing, reputation]
+
+  domain_report:
+    description: "Domain reputation report"
+    method: vt_domain_report
+    timeout: 45
+    tags: [virustotal, domain, reputation]
+
+  phishing_check:
+    description: "Focused phishing and social engineering detection"
+    method: vt_phishing_check
+    timeout: 45
+    tags: [virustotal, phishing, social_engineering]
+
+  ip_report:
+    description: "IP address reputation and associated files"
+    method: vt_ip_report
+    timeout: 45
+    tags: [virustotal, ip, reputation]

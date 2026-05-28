@@ -1,0 +1,52 @@
+scanner: titus
+description: "High-performance secrets scanner — API keys, tokens, credentials (459 rules)"
+binary: titus
+default_profile: standard
+
+profiles:
+  standard:
+    description: "Scan files/directories for secrets"
+    command_template: "titus scan {target}"
+    timeout: 300
+    tags: [secrets, credentials, api_keys, recon]
+
+  validate:
+    description: "Scan and validate detected secrets against source APIs"
+    command_template: "titus scan {target} --validate"
+    validate: true
+    timeout: 600
+    tags: [secrets, validate, active]
+
+  git_history:
+    description: "Scan git repository history for leaked secrets"
+    command_template: "titus scan {target} --git"
+    git: true
+    timeout: 600
+    tags: [secrets, git, history, leaked]
+
+  git_validate:
+    description: "Scan git history + validate secrets"
+    command_template: "titus scan {target} --git --validate"
+    git: true
+    validate: true
+    timeout: 900
+    tags: [secrets, git, validate, comprehensive]
+
+  github_repo:
+    description: "Scan a GitHub repository for secrets"
+    method: github_scan
+    timeout: 300
+    tags: [secrets, github, repo]
+
+  gitlab_project:
+    description: "Scan a GitLab project for secrets"
+    method: gitlab_scan
+    timeout: 300
+    tags: [secrets, gitlab, repo]
+
+  deep:
+    description: "Deep scan with binary extraction (Office, PDF, archives)"
+    command_template: "titus scan {target} --extract=all --validate"
+    validate: true
+    timeout: 900
+    tags: [secrets, deep, binary, extract, comprehensive]

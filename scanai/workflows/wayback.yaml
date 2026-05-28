@@ -1,0 +1,29 @@
+scanner: wayback
+description: "Wayback Machine URL archive discovery and endpoint extraction"
+binary: null
+default_profile: standard
+
+profiles:
+  standard:
+    description: "Standard Wayback URL discovery"
+    method: standard
+    timeout: 60
+    tags: [wayback, archive, recon, passive]
+
+  quick:
+    description: "Quick archive lookup — 200 URLs"
+    method: quick
+    timeout: 30
+    tags: [wayback, quick]
+
+  deep:
+    description: "Deep archive discovery — 5000 URLs"
+    method: deep
+    timeout: 120
+    tags: [wayback, deep, exhaustive]
+
+  endpoints_only:
+    description: "Extract unique endpoint paths only"
+    method: endpoints_only
+    timeout: 60
+    tags: [wayback, endpoints, paths]

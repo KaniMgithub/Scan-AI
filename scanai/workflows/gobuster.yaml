@@ -1,0 +1,41 @@
+scanner: gobuster
+description: "Directory, file, and vhost brute-force enumeration"
+binary: gobuster
+default_profile: dir_scan
+
+profiles:
+  dir_scan:
+    description: "Directory brute-force"
+    command_template: "gobuster dir -u {target} -w /usr/share/wordlists/dirb/common.txt -t 50 -q"
+    timeout: 180
+    tags: [dir, bruteforce, web]
+
+  file_scan:
+    description: "File discovery with extensions"
+    command_template: "gobuster dir -u {target} -w /usr/share/wordlists/dirb/common.txt -x php,html,js,txt,bak,conf,xml,json -t 50 -q"
+    timeout: 240
+    tags: [file, extensions, web]
+
+  vhost_scan:
+    description: "Virtual host discovery"
+    command_template: "gobuster vhost -u {target} -w /usr/share/wordlists/seclists/Discovery/DNS/subdomains-top1million-5000.txt -t 50 -q"
+    timeout: 180
+    tags: [vhost, virtual_host]
+
+  large_wordlist:
+    description: "Large wordlist directory scan"
+    command_template: "gobuster dir -u {target} -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -t 50 -q"
+    timeout: 600
+    tags: [dir, large, exhaustive]
+
+  api_discovery:
+    description: "API endpoint discovery"
+    command_template: "gobuster dir -u {target} -w /usr/share/wordlists/seclists/Discovery/Web-Content/api/api-endpoints.txt -t 50 -q"
+    timeout: 180
+    tags: [api, endpoints, web]
+
+  combined:
+    description: "Directories + files combined"
+    command_template: "gobuster dir -u {target} -w /usr/share/wordlists/dirb/common.txt -x php,html,js,txt,bak,conf,xml,json,asp,aspx,py -t 50 -q"
+    timeout: 300
+    tags: [dir, file, combined]

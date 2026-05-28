@@ -1,0 +1,152 @@
+scanner: _chain
+description: "Pre-built attack chains for common operations"
+binary: null
+
+chains:
+  quick_recon:
+    description: "Quick recon — whois + dns + subdomain + nmap ports"
+    steps:
+      - scanner: whois
+        profile: standard
+      - scanner: dns
+        profile: standard
+      - scanner: subdomain
+        profile: combined
+      - scanner: nmap
+        profile: port_scan
+    timeout: 300
+    tags: [recon, quick]
+
+  full_recon:
+    description: "Full reconnaissance — all passive + active recon + OSINT"
+    steps:
+      - scanner: whois
+        profile: standard
+      - scanner: dns
+        profile: full_enum
+      - scanner: subdomain
+        profile: combined
+      - scanner: harvester
+        profile: standard
+      - scanner: ip_geo
+        profile: standard
+      - scanner: wayback
+        profile: standard
+      - scanner: nmap
+        profile: aggressive_scan
+      - scanner: waf
+        profile: standard
+      - scanner: whatweb
+        profile: standard
+      - scanner: server_headers
+        profile: security_audit
+      - scanner: ssl
+        profile: standard
+    timeout: 1200
+    tags: [recon, full, comprehensive]
+
+  web_attack:
+    description: "Web application attack chain — WAF detect + katana crawl + XSS + SQLi + dirs + nikto"
+    steps:
+      - scanner: waf
+        profile: standard
+      - scanner: nikto
+        profile: standard
+      - scanner: katana
+        profile: deep
+      - scanner: gobuster
+        profile: combined
+      - scanner: dalfox
+        profile: standard
+      - scanner: sqlmap
+        profile: standard
+      - scanner: nuclei
+        profile: standard
+    timeout: 1200
+    tags: [web, attack, xss, sqli]
+
+  vuln_assess:
+    description: "Vulnerability assessment — nmap + nuclei + CVE + SSL"
+    steps:
+      - scanner: nmap
+        profile: aggressive_scan
+      - scanner: nuclei
+        profile: standard
+      - scanner: ssl
+        profile: detailed
+      - scanner: server_headers
+        profile: security_audit
+    timeout: 600
+    tags: [vuln, assessment, cve]
+
+  stealth_recon:
+    description: "Stealth reconnaissance — minimal noise"
+    steps:
+      - scanner: whois
+        profile: standard
+      - scanner: dns
+        profile: standard
+      - scanner: subdomain
+        profile: ct_lookup
+      - scanner: nmap
+        profile: stealth_scan
+    timeout: 400
+    tags: [stealth, recon, quiet]
+
+  phishing_analysis:
+    description: "Phishing/malicious URL analysis"
+    steps:
+      - scanner: virustotal
+        profile: phishing_check
+      - scanner: urlscan
+        profile: standard
+      - scanner: whois
+        profile: standard
+      - scanner: ssl
+        profile: standard
+    timeout: 180
+    tags: [phishing, malicious, url, analysis]
+
+  osint_recon:
+    description: "Full OSINT intelligence gathering"
+    steps:
+      - scanner: whois
+        profile: detailed
+      - scanner: harvester
+        profile: deep
+      - scanner: subdomain
+        profile: combined
+      - scanner: wayback
+        profile: deep
+      - scanner: dns
+        profile: standard
+    timeout: 600
+    tags: [osint, intel, passive, recon]
+
+  wordpress_audit:
+    description: "Full WordPress security audit"
+    steps:
+      - scanner: wpscan
+        profile: enumerate_all
+      - scanner: nikto
+        profile: standard
+      - scanner: nuclei
+        profile: cve_scan
+      - scanner: server_headers
+        profile: security_audit
+      - scanner: ssl
+        profile: standard
+    timeout: 900
+    tags: [wordpress, cms, audit]
+
+  internal_pentest:
+    description: "Internal network penetration test chain"
+    steps:
+      - scanner: nmap
+        profile: aggressive_scan
+      - scanner: enum4linux
+        profile: standard
+      - scanner: nmap
+        profile: vuln_scripts
+    timeout: 600
+    tags: [internal, smb, network, pentest]

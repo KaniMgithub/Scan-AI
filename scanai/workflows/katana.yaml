@@ -1,0 +1,53 @@
+scanner: katana
+description: "Next-generation web crawling and spidering framework (projectdiscovery)"
+binary: katana
+default_profile: standard
+
+profiles:
+  standard:
+    description: "Standard crawl — depth 3, JS parsing"
+    command_template: "katana -u {target} -jsonl -silent -depth 3 -jc -crawl-duration 90s"
+    timeout: 120
+    tags: [crawl, web, recon, spider]
+
+  deep:
+    description: "Deep crawl — depth 5, known files, form extraction"
+    command_template: "katana -u {target} -jsonl -silent -depth 5 -jc -kf all -fx -crawl-duration 180s"
+    timeout: 240
+    tags: [crawl, deep, exhaustive, forms]
+
+  quick:
+    description: "Quick surface crawl — depth 1, fast"
+    command_template: "katana -u {target} -jsonl -silent -depth 1 -timeout 5 -crawl-duration 30s"
+    timeout: 60
+    tags: [crawl, quick, surface, fast]
+
+  headless:
+    description: "Headless browser crawl — renders JavaScript, captures XHR"
+    command_template: "katana -u {target} -jsonl -silent -depth 3 -headless -system-chrome -no-sandbox -jc -xhr -crawl-duration 120s"
+    timeout: 180
+    tags: [crawl, headless, javascript, spa, xhr]
+
+  api_hunt:
+    description: "Crawl focused on API and endpoint discovery with JS parsing"
+    command_template: "katana -u {target} -jsonl -silent -depth 4 -jc -jsluice -em json,xml -fx -crawl-duration 90s"
+    timeout: 120
+    tags: [crawl, api, endpoints, js]
+
+  form_discovery:
+    description: "Crawl focused on form extraction and input discovery"
+    command_template: "katana -u {target} -jsonl -silent -depth 3 -fx -aff -jc -crawl-duration 90s"
+    timeout: 120
+    tags: [crawl, forms, inputs, autofill]
+
+  stealth:
+    description: "Low-rate stealth crawl with delays"
+    command_template: "katana -u {target} -jsonl -silent -depth 3 -jc -rate-limit 10 -delay 2 -concurrency 2 -crawl-duration 180s"
+    timeout: 240
+    tags: [crawl, stealth, slow, evasion]
+
+  scope_strict:
+    description: "Strict scope crawl — same domain only, filter duplicates"
+    command_template: "katana -u {target} -jsonl -silent -depth 3 -jc -field-scope fqdn -iqp -filter-similar -crawl-duration 90s"
+    timeout: 120
+    tags: [crawl, scope, strict, dedup]

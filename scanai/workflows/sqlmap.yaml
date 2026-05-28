@@ -1,0 +1,35 @@
+scanner: sqlmap
+description: "SQL injection detection and exploitation"
+binary: sqlmap
+default_profile: standard
+
+profiles:
+  standard:
+    description: "Standard SQL injection test"
+    command_template: "sqlmap -u {target} --batch --level 3 --risk 2 --output-dir /tmp/sqlmap"
+    timeout: 300
+    tags: [sqli, vuln, web]
+
+  quick:
+    description: "Quick SQL injection check"
+    command_template: "sqlmap -u {target} --batch --level 1 --risk 1 --output-dir /tmp/sqlmap"
+    timeout: 120
+    tags: [sqli, quick]
+
+  aggressive:
+    description: "Aggressive SQLi with all techniques"
+    command_template: "sqlmap -u {target} --batch --level 5 --risk 3 --technique=BEUSTQ --output-dir /tmp/sqlmap"
+    timeout: 600
+    tags: [sqli, aggressive, full]
+
+  dump:
+    description: "SQLi with database dump"
+    command_template: "sqlmap -u {target} --batch --level 3 --risk 2 --dump --output-dir /tmp/sqlmap"
+    timeout: 600
+    tags: [sqli, dump, exfiltrate]
+
+  waf_bypass:
+    description: "SQLi with WAF tamper scripts"
+    command_template: "sqlmap -u {target} --batch --level 3 --risk 2 --tamper=space2comment,between --random-agent --output-dir /tmp/sqlmap"
+    timeout: 300
+    tags: [sqli, waf, evasion]

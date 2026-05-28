@@ -1,0 +1,17 @@
+scanner: waf
+description: "Web Application Firewall detection and fingerprinting"
+binary: wafw00f
+default_profile: standard
+
+profiles:
+  standard:
+    description: "Standard WAF detection"
+    command_template: "wafw00f {target} -o /tmp/waf_out.json -f json"
+    timeout: 60
+    tags: [waf, detection, web]
+
+  verbose:
+    description: "Verbose WAF detection with all checks"
+    command_template: "wafw00f {target} -a -o /tmp/waf_out.json -f json"
+    timeout: 90
+    tags: [waf, verbose, fingerprint]

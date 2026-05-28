@@ -1,0 +1,25 @@
+scanner: cve
+description: "CVE vulnerability lookup based on detected software"
+binary: null
+default_profile: standard
+dependencies: [nmap, server_headers]
+
+profiles:
+  standard:
+    description: "CVE lookup for all detected software"
+    method: cve_lookup
+    timeout: 60
+    tags: [cve, vuln, software]
+
+  critical_only:
+    description: "Critical and high CVEs only"
+    method: cve_lookup
+    min_severity: HIGH
+    timeout: 60
+    tags: [cve, critical, high]
+
+  exploitable:
+    description: "CVEs with known exploits"
+    method: cve_exploitable
+    timeout: 60
+    tags: [cve, exploit, weaponized]

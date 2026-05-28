@@ -1,0 +1,65 @@
+scanner: nmap
+description: "Network port scanning and service detection"
+binary: nmap
+default_profile: aggressive_scan
+
+profiles:
+  port_scan:
+    description: "Quick top ports discovery"
+    command_template: "nmap -T4 --top-ports 1000 {target}"
+    timeout: 90
+    tags: [ports, quick, recon]
+
+  service_scan:
+    description: "Service and version detection"
+    command_template: "nmap -sV -T4 {target}"
+    timeout: 120
+    tags: [service, version]
+
+  version_scan:
+    description: "Deep version fingerprinting"
+    command_template: "nmap -sV --version-intensity 9 -T4 {target}"
+    timeout: 180
+    tags: [version, detailed, fingerprint]
+
+  aggressive_scan:
+    description: "Full aggressive scan — OS, versions, scripts, traceroute"
+    command_template: "nmap -A -T4 --max-retries 2 {target}"
+    timeout: 300
+    tags: [aggressive, full, os, scripts]
+
+  stealth_scan:
+    description: "SYN stealth scan — low noise"
+    command_template: "nmap -sS -T2 -f {target}"
+    timeout: 200
+    tags: [stealth, syn, evasion]
+
+  udp_scan:
+    description: "UDP port scan — top 100 UDP ports"
+    command_template: "nmap -sU --top-ports 100 -T4 {target}"
+    timeout: 300
+    tags: [udp, ports]
+
+  vuln_scripts:
+    description: "NSE vulnerability scripts"
+    command_template: "nmap --script vuln -T4 {target}"
+    timeout: 300
+    tags: [vuln, scripts, nse]
+
+  full_tcp:
+    description: "All 65535 TCP ports"
+    command_template: "nmap -p- -T4 --max-retries 1 {target}"
+    timeout: 600
+    tags: [full, tcp, exhaustive]
+
+  os_detection:
+    description: "OS fingerprinting only"
+    command_template: "nmap -O --osscan-guess -T4 {target}"
+    timeout: 120
+    tags: [os, fingerprint]
+
+  firewall_evasion:
+    description: "Fragmented packets + decoy scan"
+    command_template: "nmap -f -D RND:5 -T3 {target}"
+    timeout: 200
+    tags: [evasion, firewall, stealth]

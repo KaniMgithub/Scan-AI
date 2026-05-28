@@ -1,0 +1,36 @@
+scanner: harvester
+description: "OSINT email, subdomain, and IP harvesting"
+binary: theHarvester
+default_profile: standard
+
+profiles:
+  standard:
+    description: "All passive sources — emails, subdomains, IPs"
+    command_template: "theHarvester -d {target} -b all -l 200 -f /tmp/harvester_out.json"
+    timeout: 180
+    tags: [osint, email, subdomain, passive]
+
+  email_only:
+    description: "Email harvesting only"
+    command_template: "theHarvester -d {target} -b all -l 100 -f /tmp/harvester_out.json"
+    method: email_focus
+    timeout: 120
+    tags: [osint, email]
+
+  deep:
+    description: "Deep OSINT — extended search limit"
+    command_template: "theHarvester -d {target} -b all -l 500 -f /tmp/harvester_out.json"
+    timeout: 300
+    tags: [osint, deep, comprehensive]
+
+  google:
+    description: "Google dorking focused"
+    command_template: "theHarvester -d {target} -b google -l 200 -f /tmp/harvester_out.json"
+    timeout: 120
+    tags: [osint, google, dork]
+
+  linkedin:
+    description: "LinkedIn people discovery"
+    command_template: "theHarvester -d {target} -b linkedin -l 100 -f /tmp/harvester_out.json"
+    timeout: 120
+    tags: [osint, linkedin, people]

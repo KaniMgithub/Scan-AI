@@ -1,0 +1,23 @@
+scanner: ip_geo
+description: "IP geolocation, ISP info, and Shodan InternetDB lookup"
+binary: null
+default_profile: standard
+
+profiles:
+  standard:
+    description: "Geolocation + ISP + Shodan InternetDB"
+    method: ip_geo_full
+    timeout: 30
+    tags: [ip, geo, shodan, recon]
+
+  geo_only:
+    description: "Geolocation data only"
+    method: ip_geo_only
+    timeout: 15
+    tags: [ip, geo]
+
+  shodan_only:
+    description: "Shodan InternetDB data only"
+    method: shodan_internetdb
+    timeout: 15
+    tags: [ip, shodan, ports, vulns]

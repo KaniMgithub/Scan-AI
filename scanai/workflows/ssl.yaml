@@ -1,0 +1,29 @@
+scanner: ssl
+description: "SSL/TLS certificate and configuration analysis"
+binary: null
+default_profile: standard
+
+profiles:
+  standard:
+    description: "Certificate chain and validity check"
+    method: ssl_check
+    timeout: 30
+    tags: [ssl, certificate, tls]
+
+  detailed:
+    description: "Full certificate analysis with extensions and SAN"
+    method: ssl_detailed
+    timeout: 45
+    tags: [ssl, detailed, san, extensions]
+
+  cipher_audit:
+    description: "Cipher suite enumeration"
+    command_template: "nmap --script ssl-enum-ciphers -p 443 {target}"
+    timeout: 60
+    tags: [ssl, ciphers, audit]
+
+  heartbleed:
+    description: "Heartbleed vulnerability check"
+    command_template: "nmap --script ssl-heartbleed -p 443 {target}"
+    timeout: 30
+    tags: [ssl, heartbleed, vuln]

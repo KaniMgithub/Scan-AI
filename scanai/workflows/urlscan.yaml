@@ -1,0 +1,17 @@
+scanner: urlscan
+description: "URLScan.io web page analysis and threat detection"
+binary: null
+default_profile: standard
+
+profiles:
+  standard:
+    description: "Submit URL for full analysis"
+    method: urlscan_submit
+    timeout: 60
+    tags: [urlscan, web, analysis]
+
+  search:
+    description: "Search existing URLScan results"
+    method: urlscan_search
+    timeout: 30
+    tags: [urlscan, search, passive]

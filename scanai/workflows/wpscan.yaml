@@ -1,0 +1,35 @@
+scanner: wpscan
+description: "WordPress vulnerability scanning"
+binary: wpscan
+default_profile: standard
+
+profiles:
+  standard:
+    description: "Standard WordPress scan"
+    command_template: "wpscan --url {target} --format json --no-banner --random-user-agent"
+    timeout: 300
+    tags: [wordpress, vuln, cms]
+
+  enumerate_all:
+    description: "Enumerate users, plugins, themes, timthumbs"
+    command_template: "wpscan --url {target} --enumerate ap,at,u --format json --no-banner --random-user-agent"
+    timeout: 600
+    tags: [wordpress, enumerate, comprehensive]
+
+  plugins_only:
+    description: "Plugin vulnerability scan"
+    command_template: "wpscan --url {target} --enumerate ap --format json --no-banner --random-user-agent"
+    timeout: 300
+    tags: [wordpress, plugins]
+
+  aggressive:
+    description: "Aggressive scan with password brute-force detection"
+    command_template: "wpscan --url {target} --enumerate ap,at,u,cb,dbe --format json --no-banner --random-user-agent"
+    timeout: 900
+    tags: [wordpress, aggressive, full]
+
+  stealthy:
+    description: "Stealthy WP detection — minimal requests"
+    command_template: "wpscan --url {target} --format json --no-banner --random-user-agent --detection-mode passive"
+    timeout: 120
+    tags: [wordpress, stealth, passive]

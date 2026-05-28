@@ -1,0 +1,35 @@
+scanner: nikto
+description: "Web server vulnerability scanning"
+binary: nikto
+default_profile: standard
+
+profiles:
+  standard:
+    description: "Standard web server vulnerability scan"
+    command_template: "nikto -h {target} -Format json -output /tmp/nikto_out.json -nointeractive"
+    timeout: 180
+    tags: [web, vuln, nikto]
+
+  quick:
+    description: "Quick scan — reduced tests"
+    command_template: "nikto -h {target} -Format json -output /tmp/nikto_out.json -nointeractive -Tuning 1"
+    timeout: 90
+    tags: [web, vuln, quick]
+
+  thorough:
+    description: "Thorough scan — all tests including dangerous"
+    command_template: "nikto -h {target} -Format json -output /tmp/nikto_out.json -nointeractive -Tuning x"
+    timeout: 600
+    tags: [web, vuln, thorough, exhaustive]
+
+  ssl_focus:
+    description: "SSL/TLS focused scan"
+    command_template: "nikto -h {target} -Format json -output /tmp/nikto_out.json -nointeractive -ssl"
+    timeout: 120
+    tags: [web, ssl, nikto]
+
+  evasion:
+    description: "Evasion techniques enabled"
+    command_template: "nikto -h {target} -Format json -output /tmp/nikto_out.json -nointeractive -evasion 1"
+    timeout: 240
+    tags: [web, evasion, stealth]

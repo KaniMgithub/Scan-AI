@@ -1,0 +1,17 @@
+scanner: whois
+description: "WHOIS domain registration and ownership lookup"
+binary: null
+default_profile: standard
+
+profiles:
+  standard:
+    description: "Standard WHOIS lookup"
+    method: whois_lookup
+    timeout: 30
+    tags: [whois, domain, registration]
+
+  detailed:
+    description: "Extended WHOIS with raw registry data"
+    method: whois_detailed
+    timeout: 45
+    tags: [whois, detailed, raw]

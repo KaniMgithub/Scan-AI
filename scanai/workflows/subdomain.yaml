@@ -1,0 +1,30 @@
+scanner: subdomain
+description: "Subdomain enumeration via Certificate Transparency and passive sources"
+binary: null
+default_profile: ct_lookup
+
+profiles:
+  ct_lookup:
+    description: "Certificate Transparency log lookup"
+    method: certificate_transparency
+    timeout: 60
+    tags: [subdomain, passive, ct]
+
+  hackertarget:
+    description: "HackerTarget passive subdomain lookup"
+    method: hackertarget_api
+    timeout: 30
+    tags: [subdomain, passive, api]
+
+  combined:
+    description: "All passive sources combined"
+    method: all_passive
+    timeout: 90
+    tags: [subdomain, passive, comprehensive]
+
+  brute_force:
+    description: "DNS brute-force subdomain discovery"
+    method: dns_bruteforce
+    wordlist: "/usr/share/wordlists/seclists/Discovery/DNS/subdomains-top1million-5000.txt"
+    timeout: 300
+    tags: [subdomain, active, bruteforce]

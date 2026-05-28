@@ -1,0 +1,35 @@
+scanner: enum4linux
+description: "SMB/NetBIOS/LDAP enumeration"
+binary: enum4linux
+default_profile: standard
+
+profiles:
+  standard:
+    description: "Full SMB enumeration"
+    command_template: "enum4linux -a {target}"
+    timeout: 120
+    tags: [smb, netbios, enum, active]
+
+  shares:
+    description: "Enumerate shares only"
+    command_template: "enum4linux -S {target}"
+    timeout: 60
+    tags: [smb, shares]
+
+  users:
+    description: "Enumerate users only"
+    command_template: "enum4linux -U {target}"
+    timeout: 60
+    tags: [smb, users]
+
+  password_policy:
+    description: "Retrieve password policy"
+    command_template: "enum4linux -P {target}"
+    timeout: 60
+    tags: [smb, password, policy]
+
+  aggressive:
+    description: "Aggressive enumeration with RID cycling"
+    command_template: "enum4linux -a -R {target}"
+    timeout: 180
+    tags: [smb, aggressive, rid]

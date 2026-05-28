@@ -1,0 +1,23 @@
+scanner: whatweb
+description: "Web technology fingerprinting and detection"
+binary: whatweb
+default_profile: standard
+
+profiles:
+  standard:
+    description: "Standard technology detection"
+    command_template: "whatweb --color=never -a 3 {target}"
+    timeout: 60
+    tags: [tech, fingerprint, web]
+
+  aggressive:
+    description: "Aggressive technology detection"
+    command_template: "whatweb --color=never -a 4 {target}"
+    timeout: 120
+    tags: [tech, aggressive, fingerprint]
+
+  passive:
+    description: "Passive detection — minimal requests"
+    command_template: "whatweb --color=never -a 1 {target}"
+    timeout: 30
+    tags: [tech, passive, quiet]

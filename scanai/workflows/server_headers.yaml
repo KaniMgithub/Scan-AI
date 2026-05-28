@@ -1,0 +1,24 @@
+scanner: server_headers
+description: "HTTP response header analysis and security audit"
+binary: null
+default_profile: standard
+
+profiles:
+  standard:
+    description: "Fetch and analyze HTTP headers"
+    method: http_headers
+    timeout: 30
+    tags: [headers, http, security]
+
+  security_audit:
+    description: "Security header compliance check"
+    method: security_headers_audit
+    timeout: 30
+    tags: [headers, security, audit, compliance]
+
+  full:
+    description: "Full header analysis with redirect chain"
+    method: full_headers
+    follow_redirects: true
+    timeout: 45
+    tags: [headers, redirects, full]

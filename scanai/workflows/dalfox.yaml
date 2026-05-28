@@ -1,0 +1,29 @@
+scanner: dalfox
+description: "XSS vulnerability scanner"
+binary: dalfox
+default_profile: standard
+
+profiles:
+  standard:
+    description: "Standard XSS scan"
+    command_template: "dalfox url {target} --silence --format json"
+    timeout: 180
+    tags: [xss, vuln, web]
+
+  deep:
+    description: "Deep XSS scan with DOM analysis"
+    command_template: "dalfox url {target} --deep-domxss --silence --format json"
+    timeout: 300
+    tags: [xss, dom, deep]
+
+  blind:
+    description: "Blind XSS scan with callback"
+    command_template: "dalfox url {target} --blind {callback_url} --silence --format json"
+    timeout: 180
+    tags: [xss, blind]
+
+  waf_evasion:
+    description: "XSS with WAF bypass techniques"
+    command_template: "dalfox url {target} --waf-evasion --silence --format json"
+    timeout: 240
+    tags: [xss, waf, evasion]

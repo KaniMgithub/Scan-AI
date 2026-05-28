@@ -1,0 +1,41 @@
+scanner: nuclei
+description: "Template-based vulnerability scanning"
+binary: nuclei
+default_profile: standard
+
+profiles:
+  standard:
+    description: "Default nuclei scan with all templates"
+    command_template: "nuclei -u {target} -silent -jsonl"
+    timeout: 300
+    tags: [vuln, templates, comprehensive]
+
+  critical_only:
+    description: "Critical and high severity only"
+    command_template: "nuclei -u {target} -severity critical,high -silent -jsonl"
+    timeout: 180
+    tags: [vuln, critical, high]
+
+  cve_scan:
+    description: "CVE-specific templates"
+    command_template: "nuclei -u {target} -tags cve -silent -jsonl"
+    timeout: 300
+    tags: [vuln, cve, templates]
+
+  exposure:
+    description: "Exposure and misconfiguration detection"
+    command_template: "nuclei -u {target} -tags exposure,misconfig -silent -jsonl"
+    timeout: 180
+    tags: [exposure, misconfig]
+
+  tech_detect:
+    description: "Technology detection templates"
+    command_template: "nuclei -u {target} -tags tech -silent -jsonl"
+    timeout: 120
+    tags: [tech, fingerprint]
+
+  fast:
+    description: "Quick scan — low severity templates excluded"
+    command_template: "nuclei -u {target} -severity medium,high,critical -rate-limit 150 -silent -jsonl"
+    timeout: 120
+    tags: [fast, vuln]
